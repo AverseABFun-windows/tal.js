@@ -296,6 +296,15 @@ function save(world, inp) {
 	print("Saved!", "color: green");
 }
 
+function expot(world, inp) {
+	if (inp.length > 0) {
+		print("Please use this command like \"export", "color: green");
+		return;
+	}
+	var encoded = btoa(JSON.stringify(world, refReplacer()));
+	print("Share it with your friends! "+encoded, "color: green");
+}
+
 function listSaves(world, inp) {
 	print("<b>Saves: </b>","color: green");
 	for(var i in localStorage)
@@ -325,6 +334,7 @@ var globalcmds = [
 	new Command(["use", "activate", "eat"], use, "Use an item"),
 	new Command(["help"], help, "Show this help"),
 	new Command(["save"], save, "Save the game. This does overwrite a save if it exists, so check with the \"list\" command"),
+	new Command(["export"], expot, "Export the game to a save code"),
 	new Command(["saves", "list"], listSaves, "List the saves"),
 	new Command(["delete", "remove"], removeSave, "Remove a save. There's no confirmation, so be careful!"),
 ];
@@ -381,7 +391,7 @@ document.getElementById("command")
 		} else {
 			
 			if (event.ctrlKey) {
-				if (event.key == "v" | event.key == "c") {
+				if (event.key == "v" | event.key == "c" | event.key == "a" | event.key == "z" | event.key == "y") {
 					return;
 				}
 				event.preventDefault();
