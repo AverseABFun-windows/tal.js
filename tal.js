@@ -391,7 +391,7 @@ document.getElementById("command")
 		} else {
 			
 			if (event.ctrlKey) {
-				if (event.key == "v" | event.key == "c" | event.key == "a") {
+				if (event.key == "v" | event.key == "c" | event.key == "a" | event.key == "z" | event.key == "y") {
 					return;
 				}
 				event.preventDefault();
