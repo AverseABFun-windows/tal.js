@@ -70,7 +70,7 @@
 	<script src="tal.js"></script> <!-- Change the src to where you put the tal.js file -->
 	<script>
 		"use strict";
-		/*function pickl(world) { // For the pick variable(When you use eat/use on it it runs this function)
+		function pickl(world) { // For the pick variable(When you use eat/use on it it runs this function)
 			print("OM NOM NOM MMMM TASTY", "color: green");
 		}
 		var pick = new Item(
@@ -83,10 +83,11 @@
 			print("As you eat, a holy light shines on you. YOU HAVE ASCENDED TO PICKLE HEAVEN", "color: green");
 			world.current_room = rom;
 		}
-		var item = new Item("pickle", "its a pickle", "who doesn't love pickles", { "use": pickle, "consume": true, "pickup": true });*/
-		var room = new Room([], [null, null, null, null], "picklessss", "pickle room");
-		/*var room2 = new Room([item], [room, null, null, null], "picklsssss", "the pickle room woo");
-		room.exits = [null, null, room2, null];*/
+		var item = new Item("pickle", "its a pickle", "who doesn't love pickles", { "use": pickle, "consume": true, "pickup": true });
+		var item2 = new Item("pickle", "its a pickle", "who doesn't love pickles", { "use": pickle, "consume": true, "pickup": true });
+		var room = new Room([item2], [null, null, null, null], "picklessss", "pickle room");
+		var room2 = new Room([item], [room, null, null, null], "picklsssss", "the pickle room woo");
+		room.exits = [null, null, room2, null];
 		var world = new World(room, globalcmds);
 		look(world, []);
 		function load(wold, inp) {
@@ -111,7 +112,32 @@
 			print("<br>", "");
 			look(world, []);
 		}
+
+		function impot(wold, inp) {
+			if (inp.length < 1) {
+				print("Please use this command like \"import [save string here]", "color: green");
+				return;
+			}
+			inp[0] = inp.join(" ");
+			if (!testFormat(inp[0])) {
+				print("That savecode isn't valid!", "color: red");
+				return;
+			}
+			var cmds = world.commands;
+			var __parse = world.__parse;
+			var decoded = new World(parseRefJSON(atob(inp[0])).current_room, cmds);
+			world = decoded;
+			//print(decoded.commands, "color: red");
+			world.__parse = __parse;
+			world.commands = cmds;
+
+			print("Imported!", "color: green");
+			print("<br>", "");
+			look(world, []);
+		}
+		
 		world.commands.push(new Command(["load"], load, "Load a game"));
+		world.commands.push(new Command(["import"], impot, "Import a game from a save code"));
 	</script>
 	<input type="button" id="run" value="Run" onclick="var inp = document.getElementById('command').value;
 				world.__parse(inp);">
