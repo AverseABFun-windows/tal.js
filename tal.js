@@ -291,7 +291,7 @@ function save(world, inp) {
 		print("Please use this command like \"save [name here]", "color: green");
 		return;
 	}
-	var encoded = btoa(JSON.stringify(world, refReplacer()));
+	var encoded = btoa(JSON.stringify(world.current_room, refReplacer()));
 	localStorage.setItem("TAL.js.sav:"+inp.join(" "), encoded);
 	print("Saved!", "color: green");
 }
@@ -301,7 +301,7 @@ function expot(world, inp) {
 		print("Please use this command like \"export", "color: green");
 		return;
 	}
-	var encoded = btoa(JSON.stringify(world, refReplacer()));
+	var encoded = btoa(JSON.stringify(world.current_room, refReplacer()));
 	print("Share it with your friends! "+encoded, "color: green");
 }
 
@@ -310,7 +310,7 @@ function listSaves(world, inp) {
 	for(var i in localStorage)
 	{
 		if (i.startsWith("TAL.js.sav:")) {
-    	print(i.replace("TAL.js.sav:",""), "color: yellow");
+    		print(i.replace("TAL.js.sav:",""), "color: yellow");
 		}
 	}
 }
@@ -391,7 +391,7 @@ document.getElementById("command")
 		} else {
 			
 			if (event.ctrlKey) {
-				if (event.key == "v" | event.key == "c" | event.key == "a" | event.key == "z" | event.key == "y") {
+				if (event.key == "v" | event.key == "c" | event.key == "a" | event.key == "z" | event.key == "y" | event.key == "f") {
 					return;
 				}
 				event.preventDefault();

@@ -36,8 +36,7 @@
 		}
 
 		#output {
-			overflow: auto;
-			/* Make the output scrollable when neccesary */
+			overflow: auto; /* Make the output scrollable when neccesary */
 		}
 
 		@media only screen and (min-height: 600px) {
@@ -84,8 +83,7 @@
 			world.current_room = rom;
 		}
 		var item = new Item("pickle", "its a pickle", "who doesn't love pickles", { "use": pickle, "consume": true, "pickup": true });
-		var item2 = new Item("pickle", "its a pickle", "who doesn't love pickles", { "use": pickle, "consume": true, "pickup": true });
-		var room = new Room([item2], [null, null, null, null], "picklessss", "pickle room");
+		var room = new Room([item], [null, null, null, null], "picklessss", "pickle room");
 		var room2 = new Room([item], [room, null, null, null], "picklsssss", "the pickle room woo");
 		room.exits = [null, null, room2, null];
 		var world = new World(room, globalcmds);
@@ -101,11 +99,11 @@
 				return;
 			}
 			var cmds = world.commands;
-			var __parse = world.__parse;
-			var decoded = new World(parseRefJSON(atob(localStorage.getItem("TAL.js.sav:" + inp[0]))).current_room, cmds);
+			//var __parse = world.__parse;
+			var decoded = new World(parseRefJSON(atob(localStorage.getItem("TAL.js.sav:" + inp[0]))), cmds);
 			world = decoded;
 			//print(decoded.commands, "color: red");
-			world.__parse = __parse;
+			//world.__parse = __parse;
 			world.commands = cmds;
 
 			print("Loaded!", "color: green");
@@ -125,7 +123,7 @@
 			}
 			var cmds = world.commands;
 			var __parse = world.__parse;
-			var decoded = new World(parseRefJSON(atob(inp[0])).current_room, cmds);
+			var decoded = new World(parseRefJSON(atob(inp[0])), cmds);
 			world = decoded;
 			//print(decoded.commands, "color: red");
 			world.__parse = __parse;
